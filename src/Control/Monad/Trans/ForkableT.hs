@@ -20,7 +20,7 @@ forkWithMap :: (Functor f) => ((a -> f [r]) -> [a] -> f [[r]]) -> [a] -> Forkabl
 forkWithMap mapper lst = ForkableT $ ContT $ \cont ->
   concat <$> mapper cont lst
 
-forkForEachA :: (Functor f, Applicative f) => [a] -> ForkableT r f a
+forkForEachA :: (Applicative f) => [a] -> ForkableT r f a
 forkForEachA = forkWithMap T.traverse
 
 -- | Just a shortcut for concurrent programming, as yo could really
