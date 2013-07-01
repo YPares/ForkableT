@@ -10,7 +10,7 @@ process = do
     liftIO $ do
       putStrLn $ "The rest will be ran concurrently for each integer between 0 and 5,"
       putStrLn $ "the output will be interlaced, thus illegible."
-    x <- forkForeach [0..5]
+    x <- forkForEach [0..5]
     liftIO $ putStrLn $ "I received a " ++ show x ++ ". I will just return it."
     return x
 
