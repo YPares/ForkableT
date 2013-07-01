@@ -3,7 +3,7 @@
 
 name:                ForkableT
 version:             0.1.0.0
-synopsis:            A monad to handle generalized C-style forks through ContT
+synopsis:            A monad to handle _generalized_ Unix-style forks through ContT
 -- description:         
 homepage:            github.com/YPares/ForkableT
 license:             BSD3

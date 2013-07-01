@@ -16,5 +16,10 @@ process = do
 
 runProcess :: IO [Int]
 runProcess = runForkableT process
+
+unixStyleExample = runForkableT $ do
+    b <- forkForEach [False, True]
+    liftIO $ putStrLn $ if b then "I'm the father"
+                             else "I'm the child"
 ```
 
