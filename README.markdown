@@ -2,10 +2,19 @@
 
 ```haskell
 import Control.Monad.Trans.ForkableT
+import Control.Monad.Trans (liftIO)
 
-process = runForkableT $ do
-    liftIO $ putStrLn "The rest will be run concurrently for each integer between 0 and 5. The output will be interlaced, thus illegible."
+-- The 'r' comes from ContT.
+process :: ForkableT r IO Int
+process = do
+    liftIO $ do
+      putStrLn $ "The rest will be ran concurrently for each integer between 0 and 5,"
+      putStrLn $ "the output will be interlaced, thus illegible."
     x <- forkForeach [0..5]
-    liftIO $ putStrLn $ "I received a " ++ show x
+    liftIO $ putStrLn $ "I received a " ++ show x ++ ". I will just return it."
+    return x
+
+runProcess :: IO [Int]
+runProcess = runForkableT process
 ```
 
