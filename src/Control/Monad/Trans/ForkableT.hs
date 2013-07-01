@@ -7,7 +7,7 @@ import qualified Data.Traversable as T
 import qualified Control.Concurrent.Async as C
 
 
-newtype ForkableT r m a = ForkableT { forkableMToContT :: ContT [r] m a }
+newtype ForkableT r m a = ForkableT { forkableTToContT :: ContT [r] m a }
   deriving (Functor, Applicative, Monad, MonadTrans, MonadIO)
 
 runForkableT :: (Applicative f) => ForkableT t f t -> f [t]
