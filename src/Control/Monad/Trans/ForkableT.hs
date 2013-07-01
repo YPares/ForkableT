@@ -14,7 +14,7 @@ runForkableT :: (Applicative f) => ForkableT t f t -> f [t]
 runForkableT (ForkableT act) = runContT act $ pure . (:[])
 
 -- | A general function.
--- Extending it to work on every 'T.Traversable' (to be "forkTraverse")
+-- Extending it to work on every 'T.Traversable' (to be "forkWithTraverse")
 -- is more difficult than one would expect.
 forkWithMap :: (Functor f) => ((a -> f [r]) -> [a] -> f [[r]]) -> [a] -> ForkableT r f a
 forkWithMap mapper lst = ForkableT $ ContT $ \cont ->
@@ -23,8 +23,9 @@ forkWithMap mapper lst = ForkableT $ ContT $ \cont ->
 forkForEachA :: (Applicative f) => [a] -> ForkableT r f a
 forkForEachA = forkWithMap T.traverse
 
--- | Just a shortcut for concurrent programming, as yo could really
--- use 'forkForEachA' with Control.Concurrent.Async used as an Applicative.
+-- | Just a shortcut for concurrent programming, as you could really
+-- use 'forkForEachA' with Control.Concurrent.Async.Concurrently
+-- used as an Applicative.
 -- Requires base monad to be IO. Could be abstracted to accept
 -- instances of MonadIO instead (but would require monad-control or
 -- similar, due to the fact that forkIO only accepts IO actions).
