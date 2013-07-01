@@ -10,8 +10,8 @@ import qualified Control.Concurrent.Async as C
 newtype ForkableT r m a = ForkableT { forkableMToContT :: ContT [r] m a }
   deriving (Functor, Applicative, Monad, MonadTrans, MonadIO)
 
-runForkedT :: (Applicative f) => ForkableT t f t -> f [t]
-runForkedT (ForkableT act) = runContT act $ pure . (:[])
+runForkableT :: (Applicative f) => ForkableT t f t -> f [t]
+runForkableT (ForkableT act) = runContT act $ pure . (:[])
 
 -- | A general function.
 -- Extending it to work on every 'T.Traversable' is more difficult than
